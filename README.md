@@ -1,8 +1,6 @@
 ## jade-brunch
 Adds [Jade](http://jade-lang.com) support to [brunch](http://brunch.io), by 
-compiling templates into dynamic javascript modules. If you also want the 
-ability to compile into flat html files, check out the
-[jaded-brunch](https://github.com/monokrome/jaded-brunch) plugin.
+compiling templates into dynamic javascript modules.
 
 ## Usage
 Install the plugin via npm with `npm install --save jade-brunch`.
@@ -13,6 +11,20 @@ Or, do manual install:
   Pick a plugin version that corresponds to your minor (y) brunch version.
 * If you want to use git version of plugin, add
 `"jade-brunch": "git+ssh://git@github.com:brunch/jade-brunch.git"`.
+
+### Static HTML
+
+You may also compile to static HTML by setting `static` on the plugin 
+configuration:
+
+    plugins:
+      jade:
+        static: true
+
+In Brunch < 1.8.0, this will concatenate all matched HTML files,
+which probably isn't what you want. Beginning in Brunch 1.8.0, the
+filesets feature has a `separate` option, as described 
+[here](https://github.com/brunch/brunch/issues/616).
 
 ## Assumptions
 

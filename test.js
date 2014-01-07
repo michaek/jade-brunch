@@ -29,6 +29,18 @@ describe('Plugin', function() {
     });
   });
 
+  it('should compile to static html when static option is true', function(done) {
+    var content = 'p Something';
+    var expected = '<p>Something</p>';
+
+    plugin.static = true;
+
+    plugin.compile(content, 'template.jade', function(error, data) {
+      expect(error).not.to.be.ok;
+      expect(data).to.equal(expected);
+      done();
+    });
+  });
 
   describe('getDependencies', function() {
     it('should output valid deps', function(done) {

@@ -8,6 +8,7 @@ function JadeCompiler(cfg) {
   var defaultBaseDir = sysPath.join(cfg.paths.root, 'app');
   var config = cfg.plugins && cfg.plugins.jade;
   this.basedir = (config && config.basedir) || defaultBaseDir;
+  this.static = config && config.static;
   this.getDependencies = progeny({rootPath: this.basedir});
 }
 
@@ -18,13 +19,13 @@ JadeCompiler.prototype.extension = 'jade';
 JadeCompiler.prototype.compile = function(data, path, callback) {
   var compiled, error, result;
   try {
-    compiled = jade.compileClient(data, {
+    compiled = jade[this.static ? 'compile' : 'compileClient'](data, {
       compileDebug: false,
       filename: path,
       basedir: this.basedir,
       pretty: this.pretty
     });
-    return result = umd(compiled);
+    return result = this.static ? compiled() : umd(compiled);
   } catch (_error) {
     error = _error;
   } finally {
